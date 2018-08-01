@@ -8,25 +8,26 @@
 	* */
 	var myapp = angular.module('MyTodoMvc', []);
 
-	myapp.controller("MainController",['$scope',function ($scope) {
+	myapp.controller("MainController",['$scope','$location',function ($scope,$location) {
 		//任务列表
 		$scope.todos=[
-			{id:1,task:'学习',complete:false,editing:false},
-			{id:2,task:'练习',complete:false,editing:false},
-			{id:3,task:'看书',complete:true,editing:false}
+			{id:1,task:'学习',complete:false},
+			{id:2,task:'练习',complete:false},
+			{id:3,task:'看书',complete:true}
 		];
 
 		//输入任务
 		$scope.task = '';
 		//输入方法
 		$scope.add = function () {
-			$scope.todos.push({
-				id:new Date().getTime(),
-				task:$scope.task,
-				complete:false,
-				editing:false
-			});
-			$scope.task = '';
+			if($scope.task != '') {
+				$scope.todos.push({
+					id:new Date().getTime(),
+					task:$scope.task,
+					complete:false,
+				});
+				$scope.task = '';
+			}
 		};
 
 		//删除任务
@@ -78,7 +79,32 @@
 		//更新
 		$scope.updata = function () {
 			$scope.currentEditingId = -1;
-		}
+		};
+
+		/*通过swith 模拟 路由
+		* 然后页面上 通过filter来过滤数据
+		*
+		*
+		* */
+		$scope.selector = {};
+		$scope.$location = $location;
+		$scope.$watch("$location.hash()",function (now,old) {
+			console.log($location);
+			switch (now){
+				case "/active":
+					$scope.selector = {complete: false};
+					break;
+				case "/completed":
+					$scope.selector = {complete:true};
+					break;
+				default:
+					$scope.selector = {};
+					break;
+
+			}
+		})
+
+
 
 
 
