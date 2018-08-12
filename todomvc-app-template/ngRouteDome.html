@@ -21,7 +21,7 @@
 		</header>
 		<!-- This section should be hidden by default and shown when there are todos -->
 		<section class="main">
-			<input id="toggle-all" class="toggle-all" type="checkbox" ng-checked="checkAll" ng-click="selectAll()">
+			<input id="toggle-all" class="toggle-all" type="checkbox"  ng-click="selectAll()">
 			<label for="toggle-all">Mark all as complete</label>
 			<ul class="todo-list">
 				<!-- These are here just to show the structure of the list items -->
@@ -40,7 +40,7 @@
 			</ul>
 		</section>
 		<!-- This footer should hidden by default and shown when there are todos -->
-		<footer class="footer">
+		<footer class="footer" ng-show="todos.length">
 			<!-- This should be `0 items left` by default -->
 			<span class="todo-count"><strong>{{todos.length}}</strong> item left</span>
 			<!-- Remove this if you don't implement routing -->
@@ -73,6 +73,7 @@
 <script src="node_modules/angular/angular.js"></script>
 <script src="node_modules/angular-route/angular-route.js"></script>
 <script src="js/controllers.js"></script>
+<script src="js/services.js"></script>
 <script src="js/routeDome.js"></script>
 </body>
 </html>
